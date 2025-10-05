@@ -13,3 +13,23 @@
 //   g++ -std=c++11 -Wall -Wextra -pedantic -O2 lab19.cpp -o lab19
 //
 // ---------------------------------------------------------------------
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <iomanip>
+#include <cstdlib>
+#include <ctime>
+#include <random>
+
+using namespace std;
+
+// ReviewNode struct to store rating and review comment
+struct ReviewNode {
+    double rating;
+    string comment;
+    ReviewNode* next;
+    
+    // Constructor
+    ReviewNode(double r, const string& c) : rating(r), comment(c), next(nullptr) {}
+};
