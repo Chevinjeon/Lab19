@@ -78,3 +78,33 @@ class Movie {
             }
         }
         
+    // Assignment operator (deep copy)
+    Movie& operator=(const Movie& other) {
+        if (this != &other) {
+            // Clean up existing data
+            ReviewNode* current = head;
+            while (current != nullptr) {
+                ReviewNode* next = current->next;
+                delete current;
+                current = next;
+            }
+            
+            // Copy new data
+            title = other.title;
+            reviewCount = other.reviewCount;
+            head = nullptr;
+            
+            if (other.head != nullptr) {
+                head = new ReviewNode(other.head->rating, other.head->comment);
+                ReviewNode* current = head;
+                ReviewNode* otherCurrent = other.head->next;
+                
+                while (otherCurrent != nullptr) {
+                    current->next = new ReviewNode(otherCurrent->rating, otherCurrent->comment);
+                    current = current->next;
+                    otherCurrent = otherCurrent->next;
+                }
+            }
+        }
+        return *this;
+    }
