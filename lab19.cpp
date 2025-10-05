@@ -48,4 +48,33 @@ class Movie {
             static uniform_real_distribution<> dis(1.0, 5.0);
             return round(dis(gen) * 10.0) / 10.0; // Round to 1 decimal place
         }
+    
+    public:
+        // Constructor
+        Movie(const string& movieTitle) : title(movieTitle), head(nullptr), reviewCount(0) {}
+        
+        // Destructor to clean up memory
+        ~Movie() {
+            ReviewNode* current = head;
+            while (current != nullptr) {
+                ReviewNode* next = current->next;
+                delete current;
+                current = next;
+            }
+        }
+        
+        // Copy constructor (deep copy)
+        Movie(const Movie& other) : title(other.title), head(nullptr), reviewCount(other.reviewCount) {
+            if (other.head != nullptr) {
+                head = new ReviewNode(other.head->rating, other.head->comment);
+                ReviewNode* current = head;
+                ReviewNode* otherCurrent = other.head->next;
+                
+                while (otherCurrent != nullptr) {
+                    current->next = new ReviewNode(otherCurrent->rating, otherCurrent->comment);
+                    current = current->next;
+                    otherCurrent = otherCurrent->next;
+                }
+            }
+        }
         
