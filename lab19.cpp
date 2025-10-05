@@ -108,3 +108,51 @@ class Movie {
         }
         return *this;
     }
+
+    // Add review to head of linked list
+    void addReview(const string& comment) {
+        double rating = generateRandomRating();
+        ReviewNode* newNode = new ReviewNode(rating, comment);
+        newNode->next = head;
+        head = newNode;
+        reviewCount++;
+    }
+    
+    // Display movie title and all reviews
+    void displayReviews() const {
+        cout << "\n=== " << title << " ===" << endl;
+        
+        if (head == nullptr) {
+            cout << "No reviews available." << endl;
+            return;
+        }
+        
+        ReviewNode* current = head;
+        double totalRating = 0.0;
+        int reviewNumber = 1;
+        
+        while (current != nullptr) {
+            cout << "Review #" << reviewNumber << ": " 
+                 << fixed << setprecision(1) << current->rating 
+                 << " - " << current->comment << endl;
+            
+            totalRating += current->rating;
+            current = current->next;
+            reviewNumber++;
+        }
+        
+        double average = totalRating / reviewCount;
+        cout << "Average Rating: " << fixed << setprecision(2) << average << endl;
+        cout << "Total Reviews: " << reviewCount << endl;
+    }
+    
+    // Get movie title
+    string getTitle() const {
+        return title;
+    }
+    
+    // Get number of reviews
+    int getReviewCount() const {
+        return reviewCount;
+    }
+};
