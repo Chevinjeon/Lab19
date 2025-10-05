@@ -33,3 +33,19 @@ struct ReviewNode {
     // Constructor
     ReviewNode(double r, const string& c) : rating(r), comment(c), next(nullptr) {}
 };
+
+// Movie class with title and linked list of reviews
+class Movie {
+    private:
+        string title;
+        ReviewNode* head;
+        int reviewCount;
+        
+        // Helper function to generate random rating between 1.0-5.0
+        double generateRandomRating() {
+            static random_device rd;
+            static mt19937 gen(rd());
+            static uniform_real_distribution<> dis(1.0, 5.0);
+            return round(dis(gen) * 10.0) / 10.0; // Round to 1 decimal place
+        }
+        
